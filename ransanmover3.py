@@ -2070,7 +2070,6 @@ def draw_game(
     score,
     auto_mode,
     game_mode,
-    control_mode,
     game_speed
 
 ):
@@ -2168,15 +2167,15 @@ def draw_game(
     # INFO
     # =====================================================
 
+    speed_multiplier = game_speed / 10
+
     info_text = small_font.render(
         f"{game_mode} | "
         f"{'AUTO' if auto_mode else 'MANUAL'} | "
-        f"{control_mode}"
-        f"Speed: {game_speed}",
-
+        f"Speed: x{speed_multiplier:.1f}",
         True,
         WHITE
-    )
+)
 
     screen.blit(
         info_text,
@@ -2260,8 +2259,8 @@ def draw_game(
 
 def draw_pause(
     game_mode,
-    control_mode,
-    auto_mode
+    auto_mode,
+    game_speed
 ):
 
     overlay = pygame.Surface(
@@ -2298,7 +2297,7 @@ def draw_pause(
     info = small_font.render(
         f"{game_mode} | "
         f"{'AUTO' if auto_mode else 'MANUAL'} | "
-        f"{control_mode}",
+        f"Speed: x{game_speed / 10:.1f}",
         True,
         GRAY
     )
@@ -2316,7 +2315,7 @@ def draw_pause(
 
     resume_button = pygame.Rect(
         200,
-        105,
+        120,
         200,
         45
     )
@@ -2344,9 +2343,13 @@ def draw_pause(
     # AUTO / MANUAL
     # =====================================================
 
+    # =====================================================
+    # AUTO / MANUAL
+    # =====================================================
+
     pause_mode_button = pygame.Rect(
         200,
-        160,
+        175,
         200,
         45
     )
@@ -2380,81 +2383,7 @@ def draw_pause(
         )
     )
 
-    # =====================================================
-    # WASD
-    # =====================================================
 
-    wasd_button = pygame.Rect(
-        100,
-        215,
-        180,
-        45
-    )
-
-    if control_mode == "WASD":
-
-        color = GREEN
-
-    else:
-
-        color = (70, 70, 70)
-
-    pygame.draw.rect(
-        screen,
-        color,
-        wasd_button
-    )
-
-    text = button_font.render(
-        "WASD",
-        True,
-        WHITE
-    )
-
-    screen.blit(
-        text,
-        text.get_rect(
-            center=wasd_button.center
-        )
-    )
-
-    # =====================================================
-    # ARROWS
-    # =====================================================
-
-    arrows_button = pygame.Rect(
-        320,
-        215,
-        180,
-        45
-    )
-
-    if control_mode == "ARROWS":
-
-        color = GREEN
-
-    else:
-
-        color = (70, 70, 70)
-
-    pygame.draw.rect(
-        screen,
-        color,
-        arrows_button
-    )
-
-    text = button_font.render(
-        "ARROWS",
-        True,
-        WHITE
-    )
-
-    screen.blit(
-        text,
-        text.get_rect(
-            center=arrows_button.center
-        )
-    )
 
     # =====================================================
     # MAIN MENU
@@ -2462,7 +2391,7 @@ def draw_pause(
 
     main_menu_button = pygame.Rect(
         200,
-        270,
+        230,
         200,
         45
     )
@@ -2492,7 +2421,7 @@ def draw_pause(
 
     quit_button = pygame.Rect(
         200,
-        325,
+        285,
         200,
         45
     )
@@ -2519,8 +2448,6 @@ def draw_pause(
     return (
         resume_button,
         pause_mode_button,
-        wasd_button,
-        arrows_button,
         main_menu_button,
         quit_button
     )
@@ -2666,10 +2593,9 @@ game_speed = 10
 game_mode = "NORMAL"
 hard_algorithm = "A_STAR"
 
-control_mode = "WASD"
 
-target_score = 10
-input_text = "10"
+target_score = 597
+input_text = "597"
 
 # AI anti-loop
 recent_positions = deque(maxlen=35)
@@ -2706,7 +2632,7 @@ while running:
         screen.blit(
             title,
             title.get_rect(
-                center=(WIDTH // 2, 38)
+                center=(WIDTH // 2, 35)
             )
         )
 
@@ -2748,7 +2674,7 @@ while running:
             200,
             120,
             200,
-            40
+            42
         )
 
         pygame.draw.rect(
@@ -2778,7 +2704,7 @@ while running:
             200,
             168,
             200,
-            40
+            42
         )
 
         pygame.draw.rect(
@@ -2808,11 +2734,11 @@ while running:
             100,
             218,
             180,
-            40
+            42
         )
 
         if game_mode == "NORMAL":
-
+            
             color = GREEN
 
         else:
@@ -2846,7 +2772,7 @@ while running:
             320,
             218,
             180,
-            40
+            42
         )
 
         if game_mode == "HARD":
@@ -2876,81 +2802,6 @@ while running:
             )
         )
 
-        # =================================================
-        # WASD
-        # =================================================
-
-        wasd_button = pygame.Rect(
-            100,
-            268,
-            180,
-            40
-        )
-
-        if control_mode == "WASD":
-
-            color = GREEN
-
-        else:
-
-            color = (70, 70, 70)
-
-        pygame.draw.rect(
-            screen,
-            color,
-            wasd_button
-        )
-
-        text = button_font.render(
-            "WASD",
-            True,
-            WHITE
-        )
-
-        screen.blit(
-            text,
-            text.get_rect(
-                center=wasd_button.center
-            )
-        )
-
-        # =================================================
-        # ARROWS
-        # =================================================
-
-        arrows_button = pygame.Rect(
-            320,
-            268,
-            180,
-            40
-        )
-
-        if control_mode == "ARROWS":
-
-            color = GREEN
-
-        else:
-
-            color = (70, 70, 70)
-
-        pygame.draw.rect(
-            screen,
-            color,
-            arrows_button
-        )
-
-        text = button_font.render(
-            "ARROWS",
-            True,
-            WHITE
-        )
-
-        screen.blit(
-            text,
-            text.get_rect(
-                center=arrows_button.center
-            )
-        )
 
         # =================================================
         # QUIT
@@ -2958,9 +2809,9 @@ while running:
 
         quit_button = pygame.Rect(
             200,
-            320,
+            272,
             200,
-            40
+            42
         )
 
         pygame.draw.rect(
@@ -3070,15 +2921,6 @@ while running:
 
                     game_mode = "HARD"
 
-                # WASD
-                elif wasd_button.collidepoint(mouse_pos):
-
-                    control_mode = "WASD"
-
-                # ARROWS
-                elif arrows_button.collidepoint(mouse_pos):
-
-                    control_mode = "ARROWS"
 
                 # QUIT
                 elif quit_button.collidepoint(mouse_pos):
@@ -3230,7 +3072,7 @@ while running:
         score,
         auto_mode,
         game_mode,
-        control_mode
+        game_speed
     )
 
 
@@ -3242,15 +3084,14 @@ while running:
 
         buttons = draw_pause(
             game_mode,
-            control_mode,
-            auto_mode
+            auto_mode,
+            game_speed
+
         )
 
         (
             resume_button,
             pause_mode_button,
-            wasd_button,
-            arrows_button,
             main_menu_button,
             quit_button
         ) = buttons
@@ -3287,19 +3128,6 @@ while running:
 
                     recent_positions.clear()
 
-                # WASD
-                elif wasd_button.collidepoint(
-                    mouse_pos
-                ):
-
-                    control_mode = "WASD"
-
-                # ARROWS
-                elif arrows_button.collidepoint(
-                    mouse_pos
-                ):
-
-                    control_mode = "ARROWS"
 
                 # MAIN MENU
                 elif main_menu_button.collidepoint(
@@ -3351,52 +3179,59 @@ while running:
                 paused = True
 
                 continue
+         
+
+            # =================================================
+            # SPEED CONTROL - SPACE
+            # =================================================
+
+
+            # =================================================
+            # SPEED CONTROL
+            # =================================================
+
+            # SPACE = tăng tốc
+            if event.key == pygame.K_SPACE:
+
+                game_speed *= 2
+
+                if game_speed > 1000:
+                    game_speed = 5
+
+                continue
+
+
+            # F = giảm tốc
+            elif event.key == pygame.K_f:
+
+                game_speed //= 2
+
+                if game_speed < 5:
+                    game_speed = 5
+
+                continue
 
             new_direction = None
 
             # =================================================
-            # WASD
+            # WASD + ARROWS
             # =================================================
 
-            if control_mode == "WASD":
+            if event.key == pygame.K_w or event.key == pygame.K_UP:
 
-                if event.key == pygame.K_w:
+                new_direction = (0, -CELL)
 
-                    new_direction = (0, -CELL)
+            elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
 
-                elif event.key == pygame.K_s:
+                new_direction = (0, CELL)
 
-                    new_direction = (0, CELL)
+            elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
 
-                elif event.key == pygame.K_a:
+                new_direction = (-CELL, 0)
 
-                    new_direction = (-CELL, 0)
+            elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
 
-                elif event.key == pygame.K_d:
-
-                    new_direction = (CELL, 0)
-
-            # =================================================
-            # ARROWS
-            # =================================================
-
-            else:
-
-                if event.key == pygame.K_UP:
-
-                    new_direction = (0, -CELL)
-
-                elif event.key == pygame.K_DOWN:
-
-                    new_direction = (0, CELL)
-
-                elif event.key == pygame.K_LEFT:
-
-                    new_direction = (-CELL, 0)
-
-                elif event.key == pygame.K_RIGHT:
-
-                    new_direction = (CELL, 0)
+                new_direction = (CELL, 0)
 
             # =================================================
             # MOVEMENT KEY PRESSED

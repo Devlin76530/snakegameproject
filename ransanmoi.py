@@ -1552,7 +1552,7 @@ def draw_pause(
 
     resume_button = pygame.Rect(
         200,
-        105,
+        120,
         200,
         45
     )
@@ -1582,7 +1582,7 @@ def draw_pause(
 
     pause_mode_button = pygame.Rect(
         200,
-        160,
+        175,
         200,
         45
     )
@@ -1632,7 +1632,7 @@ def draw_pause(
 
     main_menu_button = pygame.Rect(
         200,
-        270,
+        230,
         200,
         45
     )
@@ -1662,7 +1662,7 @@ def draw_pause(
 
     quit_button = pygame.Rect(
         200,
-        325,
+        285,
         200,
         45
     )
@@ -1784,7 +1784,7 @@ def draw_end_screen(
 
     quit_button = pygame.Rect(
         200,
-        290,
+        285,
         200,
         45
     )
@@ -1835,8 +1835,8 @@ game_mode = "NORMAL"
 
 game_speed = 10
 
-target_score = 10
-input_text = "10"
+target_score = 597
+input_text = "597"
 
 # AI anti-loop
 recent_positions = deque(maxlen=35)
@@ -2051,7 +2051,7 @@ while running:
 
         quit_button = pygame.Rect(
             200,
-            272,
+            285,
             200,
             42
         )
