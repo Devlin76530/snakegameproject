@@ -1788,7 +1788,7 @@ def draw_end_screen(
         200,
         45
     )
-
+    
     pygame.draw.rect(
         screen,
         RED,
